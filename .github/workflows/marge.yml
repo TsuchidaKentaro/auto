@@ -1,0 +1,24 @@
+name: Auto Merge Stage to Main
+
+on:
+  push:
+    branches:
+      - stage
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Merge stage branch
+        run: git merge --no-ff --no-edit stage
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
