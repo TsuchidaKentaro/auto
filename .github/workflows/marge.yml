@@ -15,7 +15,9 @@ jobs:
           ref: main
 
       - name: Merge stage branch
-        run: git merge --no-ff --no-edit stage
+        run: |
+          git fetch origin
+          git merge --no-ff --no-edit origin/stage
 
       - name: Push changes
         uses: ad-m/github-push-action@master
